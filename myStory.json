@@ -1,58 +1,208 @@
 {
-    "Title": "Campus Life on the West Side",
-    "Credits": "Created by Adam Smith (amsmith@ucsc.edu).",
-    "InitialLocation": "Kresge",
+    "Title": "The Laboratory",
+    "Credits": "Created by Ben Hess (bwhess@ucsc.edu).",
+    "InitialLocation": "WakeUp",
     "Locations": {
-        "Kresge": {
-            "Body": "This is Kresge College, lots of nice trees.",
+        "WakeUp": {
+            "Body": "You're eyes slowly open to a bright light shining down on you from the ceiling.",
             "Choices": [
                 {
-                    "Text": "South",
-                    "Target": "Porter"
+                    "Text": "Look around",
+                    "Target": "MainRoom"
                 }
             ]
         },
-        "Porter": {
-            "Body": "This is Porter College, the trees are nice here too.",
+        "MainRoom": {
+            "Body": "You're in a small white room brightly lit by fluorescent lights. There's a door to your left, a trash can in the corner, and a cabinet on the wall.",
             "Choices": [
                 {
-                    "Text": "North",
-                    "Target": "Kresge"
+                    "Text": "Check the door",
+                    "Target": "MainRoomDoor"
                 },
                 {
-                    "Text": "South",
-                    "Target": "Rachel Carson"
-                }
-            ]
-        },
-        "Rachel Carson": {
-            "Body": "Rachel Carson College, more sun and fewer trees.",
-            "Choices": [
-                {
-                    "Text": "North",
-                    "Target": "Porter"
+                    "Text": "Check the trash",
+                    "Target": "CheckTrash"
                 },
                 {
-                    "Text": "South",
-                    "Target": "Oakes"
+                    "Text": "Check the cabinet",
+                    "Target": "CheckCabinet"
                 }
             ]
         },
-        "Oakes": {
-            "Body": "Oakes College, even the buildings have tree bark on them.",
+        "CheckCabinet": {
+            "Body": "You open the cabinet, just some old lab coats and a bucket for some reason.",
             "Choices": [
                 {
-                    "Text": "North",
-                    "Target": "Rachel Carson"
-                },
-                {
-                    "Text": "South",
-                    "Target": "Beyond"
+                    "Text": "Look around more",
+                    "Target": "MainRoom"
                 }
             ]
         },
-        "Beyond": {
-            "Body": "Grass, don't forget to check for ticks!"
+        "CheckTrash": {
+            "States": {
+                "HasMainDoorKey": {
+                    "Body": "You look in the trash can, it's empty.",
+                    "Choices": [
+                        {
+                            "Text": "Look around more",
+                            "Target": "MainRoom"
+                        }
+                    ]
+                },
+                "_": {
+                    "Body": "You look in the trash can, there's a key inside, you pick it up.",
+                    "Set": "HasMainDoorKey",
+                    "Choices": [
+                        {
+                            "Text": "Look around more",
+                            "Target": "MainRoom"
+                        }
+                    ]
+                }
+            }
+        },
+        "MainRoomDoor": {
+            "States": {
+                "HasMainDoorKey": {
+                    "Body": "You open the door, it leads to a long hallway.",
+                    "Choices": [
+                        {
+                            "Text": "Enter the hallway",
+                            "Target": "Hallway"
+                        },
+                        {
+                            "Text": "Look around the room",
+                            "Target": "MainRoom"
+                        }
+                    ]
+                },
+                "_": {
+                    "Body": "You open the door, it's locked.",
+                    "Choices": [
+                        {
+                            "Text": "Look around the room",
+                            "Target": "MainRoom"
+                        }
+                    ]
+                }
+            }
+        },
+        "Hallway": {
+            "Body": "You're in a long hallway, a number of doors line the sides of the hall.",
+            "Choices": [
+                {
+                    "Text": "Check door #1",
+                    "Target": "Door1"
+                },
+                {
+                    "Text": "Check door #2",
+                    "Target": "Door2"
+                },
+                {
+                    "Text": "Check door #3",
+                    "Target": "ControlRoom"
+                },
+                {
+                    "Text": "Check door #4",
+                    "Target": "Door4"
+                },
+                {
+                    "Text": "Check door #5",
+                    "Target": "LazerRoom"
+                }
+            ]
+        },
+        "Door1": {
+            "Body": "The door is locked.",
+            "Choices": [
+                {
+                    "Text": "Explore the hallway more.",
+                    "Target": "Hallway"
+                }
+            ]
+        },
+        "Door2": {
+            "States": {
+                "ExitUnlocked": {
+                    "Body": "The door is now unlocked! You escape!"
+                },
+                "_": {
+                    "Body": "The door is locked.",
+                    "Choices": [
+                        {
+                            "Text": "Explore the hallway more.",
+                            "Target": "Hallway"
+                        }
+                    ]
+                }
+            }
+        },
+        "ControlRoom": {
+            "Body": "You're in some sort of control room, there's a button on the wall near the door.",
+            "Choices": [
+                {
+                    "Text": "Press the button",
+                    "Target": "ControlRoomButton"
+                },
+                {
+                    "Text": "Exit the room",
+                    "Target": "Hallway"
+                }
+            ]
+        },
+        "ControlRoomButton": {
+            "States": {
+                "ExitUnlocked": {
+                    "Body": "You press the button, nothing happens.",
+                    "Choices": [
+                        {
+                            "Text": "Continue",
+                            "Target": "ControlRoom"
+                        }
+                    ]
+                },
+                "_": {
+                    "Body": "You press the button, you hear a subtle click through the wall.",
+                    "Choices": [
+                        {
+                            "Text": "Continue",
+                            "Target": "ControlRoom"
+                        }
+                    ],
+                    "Set": "ExitUnlocked"
+                }
+            }
+        },
+        "Door4": {
+            "Body": "The door is locked.",
+            "Choices": [
+                {
+                    "Text": "Explore the hallway more.",
+                    "Target": "Hallway"
+                }
+            ]
+        },
+        "LazerRoom": {
+            "Body": "You enter a strange dark room, there's appears to be some sort of lazer device in the middle of the room and a door in the back corner.",
+            "Choices": [
+                {
+                    "Text": "Exit the room",
+                    "Target": "Hallway"
+                },
+                {
+                    "Text": "Check the back door",
+                    "Target": "BackRoom"
+                }
+            ]
+        },
+        "BackRoom": {
+            "Body": "You enter a strange dark room with lots of strange equipment on shelves.",
+            "Choices": [
+                {
+                    "Text": "Exit the room",
+                    "Target": "LazerRoom"
+                }
+            ]
         }
     }
 }
